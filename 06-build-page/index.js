@@ -50,11 +50,11 @@ async function buildPage() {
       })
   } */
 
+  const outputStylesPathStream = fs.createWriteStream(path.join(__dirname, 'project-dist', 'style.css'))
   fs.promises.readdir(stylesFolderPath, { withFileTypes: true }).then((styles) => {
     for (const style of styles) {
       if (path.extname(style.name) === '.css') {
         const inputStylesPathStream = fs.createReadStream(path.join(__dirname, 'styles', style.name), 'utf8')
-        const outputStylesPathStream = fs.createWriteStream(path.join(__dirname, 'project-dist', 'style.css'))
         inputStylesPathStream.on('data', chunk => outputStylesPathStream.write(chunk))
       }
     }
